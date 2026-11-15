@@ -1,0 +1,72 @@
+{
+  "name": "Curated SideStore Community Sources",
+  "version": "1.0.0",
+  "updated": "2026-11-15",
+  "sources": [
+    {
+      "name": "SwaggyP124 TrollStore / SideStore Catalog",
+      "identifier": "com.swaggyp.apps",
+      "url": "https://raw.githubusercontent.com/swaggyP36000/TrollStore-IPAs/main/apps.json",
+      "description": "Massive collection of modified social, video, audio, and utility IPAs (uYouEnhanced, Spotify, etc.).",
+      "recommended": true
+    },
+    {
+      "name": "SideStore Official Community Sources",
+      "identifier": "io.sidestore.community",
+      "url": "https://community-sources.sidestore.io/",
+      "description": "Official community-curated applications vetted by the SideStore project.",
+      "recommended": true
+    },
+    {
+      "name": "WuChang Tweaks Hub",
+      "identifier": "com.wuchang.repo",
+      "url": "https://raw.githubusercontent.com/wuchang-repo/wuchang-repo.github.io/main/apps.json",
+      "description": "Popular tweaks and emulators tested for iOS 16, 17, and 18 compatibility.",
+      "recommended": false
+    }
+  ],
+  "recommended_apps": [
+    {
+      "name": "LiveContainer",
+      "category": "System Utility",
+      "bundle_id": "com.livecontainer.LiveContainer",
+      "upstream": "https://github.com/LiveContainer/LiveContainer",
+      "description": "Bypasses Apple's 3-app sideload limit by dynamically loading guest IPAs as libraries."
+    },
+    {
+      "name": "UTM SE",
+      "category": "Virtualization",
+      "bundle_id": "com.utmapp.UTM-SE",
+      "upstream": "https://github.com/utmapp/UTM",
+      "description": "QEMU system emulator running Linux and Windows virtual machines directly on iOS."
+    },
+    {
+      "name": "uYouEnhanced",
+      "category": "Media",
+      "bundle_id": "com.google.ios.youtube.uyouenhanced",
+      "upstream": "https://github.com/arichornlover/uYouEnhanced",
+      "description": "Ad-free YouTube client with SponsorBlock, 4K HDR, OLED dark mode, and downloads."
+    },
+    {
+      "name": "EeveeSpotify",
+      "category": "Media",
+      "bundle_id": "com.spotify.client.eevee",
+      "upstream": "https://github.com/whoeevee/EeveeSpotify",
+      "description": "Ad-free Spotify client with unlimited skips, extreme bitrate streaming, and lyrics."
+    },
+    {
+      "name": "Delta",
+      "category": "Emulation",
+      "bundle_id": "com.rileytestut.Delta",
+      "upstream": "https://github.com/rileytestut/Delta",
+      "description": "All-in-one classic Nintendo emulator (GBA, GBC, SNES, NES, N64, NDS)."
+    },
+    {
+      "name": "PPSSPP",
+      "category": "Emulation",
+      "bundle_id": "org.ppsspp.ppsspp",
+      "upstream": "https://github.com/hrydgard/ppsspp",
+      "description": "Sony PlayStation Portable emulator with 60 FPS patches and high-definition scaling."
+    }
+  ]
+}

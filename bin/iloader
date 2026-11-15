@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# iloader Runner Script
+# Launches the iloader GUI companion with appropriate environment bindings.
+# ==============================================================================
+
+set -euo pipefail
+
+ILOADER_BIN="${HOME}/.local/bin/iloader"
+
+if [[ ! -x "${ILOADER_BIN}" ]]; then
+    if command -v iloader >/dev/null 2>&1; then
+        ILOADER_BIN="$(command -v iloader)"
+    else
+        echo "[ERROR] iloader executable not found in ~/.local/bin or PATH." >&2
+        echo "Run 'scripts/setup_linux.sh' to install or restore required tools." >&2
+        exit 1
+    fi
+fi
+
+# Ensure Wayland / X11 display handles correctly
+export DISPLAY="${DISPLAY:-:0}"
+if [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
+    export GDK_BACKEND="wayland,x11"
+fi
+
+exec "${ILOADER_BIN}" "$@"
