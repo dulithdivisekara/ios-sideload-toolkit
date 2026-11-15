@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" width="120" alt="iOS Sideloading Toolkit Logo" />
+</p>
+
 <h1 align="center">iOS Sideloading Toolkit</h1>
 
 <p align="center">
@@ -33,7 +37,7 @@ This repository provides a complete, tested toolchain for Ubuntu Linux to bootst
 
 ```mermaid
 graph TD
-    subgraph Host Workstation (Ubuntu 26.04)
+    subgraph HostWorkstation ["Host Workstation (Ubuntu 26.04)"]
         USB["usbmuxd daemon"]
         PMD["pymobiledevice3 (AMFI & RSD Tunnel)"]
         ILOADER["iloader (Developer Session & AFC Provider)"]
@@ -41,12 +45,12 @@ graph TD
         USB --> ILOADER
     end
 
-    subgraph Hardware & Sealed OS
+    subgraph HardwareOS ["Hardware and Sealed OS"]
         SEP["Secure Enclave Processor (SEP)"]
         SSV["Signed System Volume (SSV)<br/>Read-Only APFS Snapshot"]
     end
 
-    subgraph Sandboxed iOS Userland
+    subgraph Userland ["Sandboxed iOS Userland"]
         VPN["LocalDevVPN (Loopback Interface)"]
         SIDESTORE["SideStore (/Containers/Bundle/Application)"]
         GUEST["Sideloaded Apps (Lightroom, uYouEnhanced, Delta)"]
@@ -75,6 +79,8 @@ graph TD
 ├── LICENSE                      # MIT Open Source License
 ├── README.md                    # Core technical documentation
 ├── SECURITY.md                  # Security boundary and threat model analysis
+├── assets/
+│   └── logo.png                 # Compressed repository header logo
 ├── bin/
 │   └── iloader                  # Desktop companion launcher script
 ├── config/
