@@ -21,6 +21,7 @@
   <a href="#project-structure">Structure</a> &bull;
   <a href="#installation">Installation</a> &bull;
   <a href="#usage">Usage</a> &bull;
+  <a href="#livecontainer--3-app-limit-bypass">3-App Bypass</a> &bull;
   <a href="#diy-ipa-building">DIY Building</a> &bull;
   <a href="#curated-app-vault">App Vault</a> &bull;
   <a href="#security">Security</a> &bull;
@@ -53,9 +54,11 @@ graph TD
     subgraph Userland ["Sandboxed iOS Userland"]
         VPN["LocalDevVPN (Loopback Interface)"]
         SIDESTORE["SideStore (/Containers/Bundle/Application)"]
-        GUEST["Sideloaded Apps (Lightroom, uYouEnhanced, Delta)"]
+        LIVECONTAINER["LiveContainer Host App"]
+        GUEST["Guest Apps (uYouEnhanced, EeveeSpotify)"]
         VPN --> SIDESTORE
-        SIDESTORE --> GUEST
+        SIDESTORE --> LIVECONTAINER
+        LIVECONTAINER -->|Dynamic dlopen| GUEST
     end
 
     ILOADER -->|Bootstrap via USB| SIDESTORE
@@ -87,7 +90,10 @@ graph TD
 │   ├── SideStore.conf           # WireGuard loopback configuration profile
 │   ├── SideStore_WireGuard_QR.png # Scan QR code for 1-tap tunnel configuration
 │   └── SideStore.pairingFile    # Local pairing record (git-ignored)
-├── docs/                        # Architectural and walkthrough specifications
+├── docs/                        # In-depth technical specifications
+│   ├── IPA_VAULT.md             # Vault organization and community catalog guide
+│   ├── LIVECONTAINER_GUIDE.md   # JIT-less configuration and 3-app limit resolution
+│   └── TROUBLESHOOTING.md       # Diagnostic matrix and error recovery steps
 ├── ipas/                        # Local IPA vault directory (binaries git-ignored)
 │   └── .gitkeep
 ├── profiles/
@@ -154,6 +160,19 @@ Launch the desktop helper:
 3. Open **SideStore**, navigate to **Settings**, and sign in with the same Apple ID.
 4. Your iPhone can now install and refresh applications wirelessly without PC intervention.
 
+## LiveContainer & 3-App Limit Bypass
+
+Free Apple Developer profiles restrict devices to **3 active installed application bundles**. Installing standalone IPAs for SideStore, LiveContainer, and Lightroom exhausts all available App ID slots, causing subsequent installations to fail with `ApplicationVerificationFailed`.
+
+To run unlimited additional applications (such as YouTube and Spotify) without consuming extra slots:
+
+1. **Keep SideJITServer Disabled:** In **SideStore > Settings**, verify that **Enable SideJITServer** is set to **OFF**. JIT-less mode does not require an active debugger server.
+2. **Export Certificate from Keychain:** In **SideStore > Settings**, tap your developer account row. Long-press the certificate entry, select **Export Certificate**, enter password `password`, and save it to the Files app.
+3. **Import into LiveContainer:** In **LiveContainer > Settings**, tap **Import Certificate**, select the exported `.p12` file, and supply password `password`. Select the provisioning profile and verify success via **JIT-Less Mode Diagnose**.
+4. **Load Guest Apps:** In LiveContainer's **Apps** tab, tap `+` to add and launch unlimited IPAs.
+
+Detailed architectural specifications and recovery steps are documented in [docs/LIVECONTAINER_GUIDE.md](docs/LIVECONTAINER_GUIDE.md) and [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
+
 ## DIY IPA Building
 
 Certain developers distribute modifications as source code or tweaks due to legal or licensing constraints. This toolkit provides automated scripts to build and inject tweaks on Linux.
@@ -198,6 +217,8 @@ Download verified releases into your vault using the helper:
 | **EeveeSpotify** | Media | Spotify with unlimited skips, zero audio ads, and synchronized lyrics. | [EeveeSpotify](https://github.com/whoeevee/EeveeSpotify) |
 | **Delta** | Emulation | Multi-system console emulator for Nintendo DS, GBA, SNES, and N64. | [Delta](https://github.com/rileytestut/Delta) |
 | **PPSSPP** | Emulation | Sony PSP emulator with 60 FPS patches and high-resolution scaling. | [PPSSPP](https://github.com/hrydgard/ppsspp) |
+
+For comprehensive catalogue sources and feeds, consult [docs/IPA_VAULT.md](docs/IPA_VAULT.md).
 
 ## Security
 
